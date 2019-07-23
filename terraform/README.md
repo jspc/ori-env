@@ -1,6 +1,6 @@
-# Terraforming this project
+## Terraforming this project
 
-## Initialisation
+### Initialisation
 
 You will need the following digital ocean variables to hand:
  1. Digital Ocean API token
@@ -19,7 +19,7 @@ From here, terraform its self can be initialised
 $ terraform init
 ```
 
-## Planning, running
+### Planning, running
 
 To inspect changes, assuming the above has been completed, one may run:
 
@@ -31,4 +31,10 @@ Assuming, again, that the output of this command is what one expects, the enviro
 
 ```bash
 $ terraform apply
+```
+
+The above `plan` and `apply` step can be performed, from the root of this project, as:
+
+```bash
+$ make terraform
 ```

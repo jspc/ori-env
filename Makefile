@@ -11,3 +11,6 @@ bootstrap:
 
 helm:
 	true
+
+README.md:
+	cat docs/README.md terraform/README.md kubernetes-bootstrap/README.md > README.md
