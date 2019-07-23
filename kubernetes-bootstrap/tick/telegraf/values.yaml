@@ -1,0 +1,19 @@
+config:
+  inputs:
+    - influxdb:
+        urls:
+          - http://influxdb.ori:8086/debug/vars
+    - zipkin:
+        path: "/api/v1/spans"
+        port: 9411
+
+  outputs:
+    - influxdb:
+        url: http://influxdb.ori:8086
+        database: "telegraf"
+        retention_policy: ""
+        timeout: "5s"
+        username: ""
+        password: ""
+        user_agent: "telegraf"
+        insecure_skip_verify: false

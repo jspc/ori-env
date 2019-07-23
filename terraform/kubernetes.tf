@@ -40,7 +40,7 @@ resource "aws_s3_bucket_object" "kubeconfig" {
 resource "digitalocean_certificate" "cert" {
   name    = "${local.ori_fqdn}"
   type    = "lets_encrypt"
-  domains = ["${local.ori_fqdn}"]
+  domains = ["${local.ori_fqdn}", "monitoring.${local.ori_fqdn}"]
 
   lifecycle {
     create_before_destroy = true
@@ -52,25 +52,19 @@ resource "digitalocean_loadbalancer" "public" {
   region = "nyc3"
 
   forwarding_rule {
-    entry_port     = 80
-    entry_protocol = "http"
-
-    target_port     = 80
-    target_protocol = "http"
-  }
-
-  forwarding_rule {
     entry_port     = 443
     entry_protocol = "https"
 
-    target_port     = 80
-    target_protocol = "http"
+    target_port     = 32443
+    target_protocol = "https"
 
     certificate_id = "${digitalocean_certificate.cert.id}"
   }
 
+  redirect_http_to_https = true
+
   healthcheck {
-    port     = 80
+    port     = 32080
     protocol = "tcp"
   }
 
@@ -85,5 +79,12 @@ resource "digitalocean_record" "orico" {
   domain = "${data.digitalocean_domain.domain.name}"
   type   = "A"
   name   = "${local.ori_sub}"
+  value  = "${digitalocean_loadbalancer.public.ip}"
+}
+
+resource "digitalocean_record" "monitoring" {
+  domain = "${data.digitalocean_domain.domain.name}"
+  type   = "A"
+  name   = "monitoring.${local.ori_sub}"
   value  = "${digitalocean_loadbalancer.public.ip}"
 }

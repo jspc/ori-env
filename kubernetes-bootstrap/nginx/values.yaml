@@ -1,0 +1,24 @@
+controller:
+  daemonset:
+    useHostPort: true
+  extraEnvs:
+    - name: HOST_IP
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: status.hostIP
+
+  config:
+    enable-opentracing: "true"
+    zipkin-collector-host: $HOST_IP
+
+  service:
+    type: NodePort
+    nodePorts:
+      http: 32080
+      https: 32443
+      tcp:
+        8080: 32808
+
+    annotations:
+      - external-dns.alpha.kubernetes.io/hostname: ori.jspc.pw.

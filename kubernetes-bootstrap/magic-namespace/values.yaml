@@ -1,0 +1,22 @@
+serviceAccounts: null
+tiller:
+  affinity: {}
+  enabled: true
+  image:
+    pullPolicy: IfNotPresent
+    repository: gcr.io/kubernetes-helm/tiller
+    tag: v2.14.0
+  includeService: false
+  maxHistory: 0
+  nodeSelector: {}
+  onlyListenOnLocalhost: true
+  replicaCount: 1
+  resources: {}
+  role:
+    name: admin
+    type: ClusterRole
+  tls:
+    enabled: false
+    secretName: ""
+    verify: true
+  tolerations: []

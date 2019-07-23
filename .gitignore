@@ -1,3 +1,5 @@
 .secret
 terraform/.terraform
 .terraform
+kubeconfig
+kubernetes-bootstrap/tick/chronograph/values.yaml
