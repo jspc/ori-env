@@ -19,4 +19,4 @@ helm:
 	true
 
 README.md:
-	cat docs/README.md terraform/README.md kubernetes-bootstrap/README.md > README.md
+	cat docs/README.md terraform/README.md kubernetes-bootstrap/README.md helm-charts/README.md > README.md
