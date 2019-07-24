@@ -7,7 +7,7 @@ terraform:
 	cd ./terraform ; terraform plan && terraform apply ; cd -
 
 kubernetes-bootstrap/kubeconfig:
-	aws s3 cp s3://config-ori-jspc-pw/kubeconfig . --endpoint=https://nyc3.digitaloceanspaces.com
+	aws s3 cp s3://config-ori-jspc-pw/kubeconfig kubernetes-bootstrap/kubeconfig --endpoint=https://nyc3.digitaloceanspaces.com
 
 kubernetes-bootstrap/tick/chronograph/values.yaml:
 	aws s3 cp s3://config-ori-jspc-pw/chronograf-values.yaml kubernetes-bootstrap/tick/chronograph/values.yaml --endpoint=https://nyc3.digitaloceanspaces.com
