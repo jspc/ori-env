@@ -10,7 +10,7 @@ This will allow for CI/CD tasks to deploy applications without having to redefin
 This all may be done, in projects, with:
 
 ```bash
-$ git submodule add git@github.com/jspc/ori-env .ori-env
+$ git submodule add git@github.com:jspc/ori-env .ori-env
 ```
 
 Then adding the following to the top of your Makefile
