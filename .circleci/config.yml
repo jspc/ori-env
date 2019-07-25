@@ -1,0 +1,37 @@
+config_docker: &config_docker
+  docker:
+    - image: jspc/ci-worker:1.0.0
+  resource_class: small
+
+version: 2.1
+jobs:
+  build:
+    <<: *config_docker
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - state
+
+      - run: make terraform
+
+      - save_cache:
+          key: state
+          paths:
+            - terraform/terraform.tfstate
+
+      - run: make bootstrap
+
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+          context: BUILD
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
