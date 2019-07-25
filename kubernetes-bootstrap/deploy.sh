@@ -31,7 +31,7 @@ kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceac
 
 helm init --service-account=tiller --wait
 
-helm repo add techtest https://config.ori.jspc.pw
+helm repo add techtest https://charts.jspc.pw
 helm repo add influx http://influx-charts.storage.googleapis.com
 
 helm repo update
@@ -52,3 +52,6 @@ exists nginx || helm --tiller-namespace=${NAMESPACE} install --namespace=${NAMES
 exists influxdb || helm --tiller-namespace=${NAMESPACE} install --namespace=${NAMESPACE} stable/influxdb --name influxdb --wait
 exists telegraf || helm --tiller-namespace=${NAMESPACE} install --namespace=${NAMESPACE} influx/telegraf-ds --name telegraf --values="${DIR}/tick/telegraf/values.yaml" --wait
 exists chronograf || helm --tiller-namespace=${NAMESPACE} install --namespace=${NAMESPACE} stable/chronograf --name chronograf --values="${DIR}/tick/chronograph/values.yaml" --wait
+
+# redis for sine-service
+exists redis || helm --tiller-namespace=${NAMESPACE} install --namespace=${NAMESPACE} stable/redis-ha --name redis --wait
