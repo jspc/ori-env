@@ -12,8 +12,7 @@ jobs:
       - restore_cache:
           keys:
             - state
-      - run: cd terraform && terraform init
-      - run: make terraform
+      - run: make terraform-ci
       - save_cache:
           key: state
           paths:
