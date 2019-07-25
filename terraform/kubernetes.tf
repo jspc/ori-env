@@ -37,10 +37,10 @@ resource "aws_s3_bucket_object" "kubeconfig" {
   depends_on = ["module.config_bucket"]
 }
 
-resource "digitalocean_certificate" "cert" {
+resource "digitalocean_certificate" "kubernetes" {
   name    = "${local.ori_fqdn}"
   type    = "lets_encrypt"
-  domains = ["${local.ori_fqdn}", "monitoring.${local.ori_fqdn}"]
+  domains = ["${local.ori_fqdn}", "monitoring.${local.ori_fqdn}", "sine.${local.ori_fqdn}"]
 
   lifecycle {
     create_before_destroy = true
@@ -58,7 +58,7 @@ resource "digitalocean_loadbalancer" "public" {
     target_port     = 32443
     target_protocol = "https"
 
-    certificate_id = "${digitalocean_certificate.cert.id}"
+    certificate_id = "${digitalocean_certificate.kubernetes.id}"
   }
 
   redirect_http_to_https = true
@@ -86,5 +86,12 @@ resource "digitalocean_record" "monitoring" {
   domain = "${data.digitalocean_domain.domain.name}"
   type   = "A"
   name   = "monitoring.${local.ori_sub}"
+  value  = "${digitalocean_loadbalancer.public.ip}"
+}
+
+resource "digitalocean_record" "sine" {
+  domain = "${data.digitalocean_domain.domain.name}"
+  type   = "A"
+  name   = "sine.${local.ori_sub}"
   value  = "${digitalocean_loadbalancer.public.ip}"
 }
