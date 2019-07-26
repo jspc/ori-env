@@ -25,8 +25,11 @@ publish-charts:
 .build/kubeconfig:
 	aws s3 cp s3://config-ori-jspc-pw/kubeconfig .build/kubeconfig --endpoint=https://nyc3.digitaloceanspaces.com
 
-update:
+helm-repo-add:
+	helm repo add jspc https://charts-jspc-pw.nyc3.cdn.digitaloceanspaces.com  # skip caching
+
+helm-repo-update:
 	helm repo update
 
 deploy: .build/kubeconfig
-	helm --tiller-namespace=ori upgrade --namespace=ori ${APP} techtest/${APP}
+	helm --tiller-namespace=ori upgrade --namespace=ori ${APP} jspc/${APP}
