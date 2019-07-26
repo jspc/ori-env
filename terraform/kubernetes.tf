@@ -40,7 +40,7 @@ resource "aws_s3_bucket_object" "kubeconfig" {
 resource "digitalocean_certificate" "kubernetes" {
   name    = "${local.ori_fqdn}"
   type    = "lets_encrypt"
-  domains = ["${local.ori_fqdn}", "monitoring.${local.ori_fqdn}", "sine.${local.ori_fqdn}"]
+  domains = ["jspc.pw", "${local.ori_fqdn}", "monitoring.${local.ori_fqdn}", "sine.${local.ori_fqdn}"]
 
   lifecycle {
     create_before_destroy = true

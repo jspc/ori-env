@@ -14,7 +14,7 @@ resource "digitalocean_spaces_bucket" "bucket" {
 resource "digitalocean_certificate" "cert" {
   name    = "c.${var.fqdn}"
   type    = "lets_encrypt"
-  domains = ["${var.fqdn}"]
+  domains = ["jspc.pw", "${var.fqdn}"]
 
   depends_on = ["digitalocean_spaces_bucket.bucket"]
 }
