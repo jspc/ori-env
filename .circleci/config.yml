@@ -9,14 +9,7 @@ jobs:
     <<: *config_docker
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - state
       - run: make terraform-ci
-      - save_cache:
-          key: state
-          paths:
-            - terraform/terraform.tfstate
       - run: make bootstrap
 
 workflows:
