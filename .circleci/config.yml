@@ -1,6 +1,6 @@
 config_docker: &config_docker
   docker:
-    - image: jspc/ci-worker:1.2.0
+    - image: jspc/ci-worker:1.2.1
   resource_class: small
 
 version: 2.1
