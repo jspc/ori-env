@@ -15,7 +15,7 @@ sync-charts: ${CHART_DIR}
 
 package-chart:
 	cd ${CHART_DIR} && (                                             \
-		helm package helm/${APP} &&                              \
+		helm package ../../../helm/${APP} &&                     \
 		helm repo index . --url https://charts.jspc.pw           \
 	)
 
